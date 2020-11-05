@@ -35,6 +35,7 @@ The type of time ranges to compare must be either `TimeOfDayRange`, which is cre
     print(overlappingRange);
   }
   ```
+  Output
   ```
    TimeOfDay(3:00) - TimeOfDay(04:00)
   ```
@@ -70,6 +71,7 @@ The type of time ranges to compare must be either `TimeOfDayRange`, which is cre
     print(overlappingRange);
   }
   ```
+  Output
   ```
   2020-01-01 03:00:00.000 - 2020-01-01 04:00:00.000
   ```
