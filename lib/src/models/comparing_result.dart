@@ -9,15 +9,16 @@ class ComparingResult {
     @required this.comparedRanges,
     @required this.overlappingRange,
   })  : assert(comparedRanges != null),
-        assert(overlappingRange != null),
         assert(
           comparedRanges.isNotEmpty,
           '"comparedRanges" shoudn\'t be empty.',
         ),
-        assert((comparedRanges.every((element) => element is TimeOfDayRange) &&
-                overlappingRange is TimeOfDayRange) ||
-            (comparedRanges.every((element) => element is DateTimeRange) &&
-                overlappingRange is DateTimeRange));
+        assert(comparedRanges.every((element) => element is TimeOfDayRange) &&
+                (overlappingRange is TimeOfDayRange ||
+                    overlappingRange == null) ||
+            comparedRanges.every((element) => element is DateTimeRange) &&
+                (overlappingRange is DateTimeRange ||
+                    overlappingRange == null));
 
   /// All compared ranges to find [overlappingRange].
   ///

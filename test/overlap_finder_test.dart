@@ -395,6 +395,7 @@ void main() {
           ],
         },
       );
+
       expect(
         findOverlap(ranges: [
           DateTimeRange(
@@ -583,6 +584,198 @@ void main() {
           ],
         },
       );
+    });
+  });
+
+  group('includeTouchingRanges: true', () {
+    test('TimeOfDayRange', () {
+      expect(
+          findOverlap(
+            allowTouchingRanges: true,
+            ranges: const [
+              TimeOfDayRange(
+                start: TimeOfDay(hour: 1, minute: 0),
+                end: TimeOfDay(hour: 5, minute: 0),
+              ),
+              TimeOfDayRange(
+                start: TimeOfDay(hour: 5, minute: 0),
+                end: TimeOfDay(hour: 7, minute: 0),
+              ),
+              TimeOfDayRange(
+                start: TimeOfDay(hour: 4, minute: 0),
+                end: TimeOfDay(hour: 6, minute: 0),
+              ),
+            ],
+          ),
+          {
+            2: [
+              ComparingResult(
+                comparedRanges: const [
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 1, minute: 0),
+                    end: TimeOfDay(hour: 5, minute: 0),
+                  ),
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 5, minute: 0),
+                    end: TimeOfDay(hour: 7, minute: 0),
+                  ),
+                ],
+                overlappingRange: const TimeOfDayRange(
+                  start: TimeOfDay(hour: 5, minute: 0),
+                  end: TimeOfDay(hour: 5, minute: 0),
+                ),
+              ),
+              ComparingResult(
+                comparedRanges: const [
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 1, minute: 0),
+                    end: TimeOfDay(hour: 5, minute: 0),
+                  ),
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 4, minute: 0),
+                    end: TimeOfDay(hour: 6, minute: 0),
+                  ),
+                ],
+                overlappingRange: const TimeOfDayRange(
+                  start: TimeOfDay(hour: 4, minute: 0),
+                  end: TimeOfDay(hour: 5, minute: 0),
+                ),
+              ),
+              ComparingResult(
+                comparedRanges: const [
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 5, minute: 0),
+                    end: TimeOfDay(hour: 7, minute: 0),
+                  ),
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 4, minute: 0),
+                    end: TimeOfDay(hour: 6, minute: 0),
+                  ),
+                ],
+                overlappingRange: const TimeOfDayRange(
+                  start: TimeOfDay(hour: 5, minute: 0),
+                  end: TimeOfDay(hour: 6, minute: 0),
+                ),
+              ),
+            ],
+            3: [
+              ComparingResult(
+                comparedRanges: const [
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 1, minute: 0),
+                    end: TimeOfDay(hour: 5, minute: 0),
+                  ),
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 5, minute: 0),
+                    end: TimeOfDay(hour: 7, minute: 0),
+                  ),
+                  TimeOfDayRange(
+                    start: TimeOfDay(hour: 4, minute: 0),
+                    end: TimeOfDay(hour: 6, minute: 0),
+                  ),
+                ],
+                overlappingRange: const TimeOfDayRange(
+                  start: TimeOfDay(hour: 4, minute: 0),
+                  end: TimeOfDay(hour: 5, minute: 0),
+                ),
+              ),
+            ],
+          });
+    });
+
+    test('DateTimeRange', () {
+      expect(
+          findOverlap(
+            allowTouchingRanges: true,
+            ranges: [
+              DateTimeRange(
+                start: DateTime(2020, 1, 1, 1, 0),
+                end: DateTime(2020, 1, 1, 5, 0),
+              ),
+              DateTimeRange(
+                start: DateTime(2020, 1, 1, 5, 0),
+                end: DateTime(2020, 1, 1, 7, 0),
+              ),
+              DateTimeRange(
+                start: DateTime(2020, 1, 1, 4, 0),
+                end: DateTime(2020, 1, 1, 6, 0),
+              ),
+            ],
+          ),
+          {
+            2: [
+              ComparingResult(
+                comparedRanges: [
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 1, 0),
+                    end: DateTime(2020, 1, 1, 5, 0),
+                  ),
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 5, 0),
+                    end: DateTime(2020, 1, 1, 7, 0),
+                  ),
+                ],
+                overlappingRange: DateTimeRange(
+                  start: DateTime(2020, 1, 1, 5, 0),
+                  end: DateTime(2020, 1, 1, 5, 0),
+                ),
+              ),
+              ComparingResult(
+                comparedRanges: [
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 1, 0),
+                    end: DateTime(2020, 1, 1, 5, 0),
+                  ),
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 4, 0),
+                    end: DateTime(2020, 1, 1, 6, 0),
+                  ),
+                ],
+                overlappingRange: DateTimeRange(
+                  start: DateTime(2020, 1, 1, 4, 0),
+                  end: DateTime(2020, 1, 1, 5, 0),
+                ),
+              ),
+              ComparingResult(
+                comparedRanges: [
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 5, 0),
+                    end: DateTime(2020, 1, 1, 7, 0),
+                  ),
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 4, 0),
+                    end: DateTime(2020, 1, 1, 6, 0),
+                  ),
+                ],
+                overlappingRange: DateTimeRange(
+                  start: DateTime(2020, 1, 1, 5, 0),
+                  end: DateTime(2020, 1, 1, 6, 0),
+                ),
+              ),
+            ],
+            3: [
+              ComparingResult(
+                comparedRanges: [
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 1, 0),
+                    end: DateTime(2020, 1, 1, 5, 0),
+                  ),
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 5, 0),
+                    end: DateTime(2020, 1, 1, 7, 0),
+                  ),
+                  DateTimeRange(
+                    start: DateTime(2020, 1, 1, 4, 0),
+                    end: DateTime(2020, 1, 1, 6, 0),
+                  ),
+                ],
+                overlappingRange: DateTimeRange(
+                  start: DateTime(2020, 1, 1, 4, 0),
+                  end: DateTime(2020, 1, 1, 5, 0),
+                ),
+              ),
+            ],
+          });
     });
   });
 

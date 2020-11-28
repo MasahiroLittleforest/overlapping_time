@@ -27,6 +27,7 @@ void main() {
       );
       expect(pairA == pairB, true);
     });
+
     test('!=', () {
       final DateTimeRangePair pairA = DateTimeRangePair(
         a: DateTimeRange(
@@ -65,12 +66,10 @@ void main() {
             end: DateTime(2020, 1, 1, 2, 0),
           ),
         ).getOverlappingRange(),
-        DateTimeRange(
-          start: DateTime(2020, 1, 1, 1, 0),
-          end: DateTime(2020, 1, 1, 2, 0),
-        ),
+        null,
       );
     });
+
     test('ABAB', () {
       expect(
         DateTimeRangePair(
@@ -89,6 +88,7 @@ void main() {
         ),
       );
     });
+
     test('BABA', () {
       expect(
         DateTimeRangePair(
@@ -107,6 +107,7 @@ void main() {
         ),
       );
     });
+
     test('ABBA', () {
       expect(
         DateTimeRangePair(
@@ -125,6 +126,7 @@ void main() {
         ),
       );
     });
+
     test('BAAB', () {
       expect(
         DateTimeRangePair(
@@ -143,7 +145,9 @@ void main() {
         ),
       );
     });
+
     test('AABB', () {
+      // A.end < B.start
       expect(
         DateTimeRangePair(
           a: DateTimeRange(
@@ -157,6 +161,7 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
+
       // A.end == B.start
       expect(
         DateTimeRangePair(
@@ -171,9 +176,27 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
+
+      expect(
+        DateTimeRangePair(
+          a: DateTimeRange(
+            start: DateTime(2020, 1, 1, 1, 0),
+            end: DateTime(2020, 1, 1, 2, 0),
+          ),
+          b: DateTimeRange(
+            start: DateTime(2020, 1, 1, 2, 0),
+            end: DateTime(2020, 1, 1, 3, 0),
+          ),
+        ).getOverlappingRange(allowTouchingRanges: true),
+        DateTimeRange(
+          start: DateTime(2020, 1, 1, 2, 0),
+          end: DateTime(2020, 1, 1, 2, 0),
+        ),
+      );
     });
+
     test('BBAA', () {
-      //
+      // B.end < A.start
       expect(
         DateTimeRangePair(
           a: DateTimeRange(
@@ -187,7 +210,8 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
-      //  B.start == A.end
+
+      //  B.end == A.start
       expect(
         DateTimeRangePair(
           a: DateTimeRange(
@@ -201,8 +225,26 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
+
+      expect(
+        DateTimeRangePair(
+          a: DateTimeRange(
+            start: DateTime(2020, 1, 1, 2, 0),
+            end: DateTime(2020, 1, 1, 3, 0),
+          ),
+          b: DateTimeRange(
+            start: DateTime(2020, 1, 1, 1, 0),
+            end: DateTime(2020, 1, 1, 2, 0),
+          ),
+        ).getOverlappingRange(allowTouchingRanges: true),
+        DateTimeRange(
+          start: DateTime(2020, 1, 1, 2, 0),
+          end: DateTime(2020, 1, 1, 2, 0),
+        ),
+      );
     });
   });
+
   test('ranges are null', () {
     expect(
       () => DateTimeRangePair(a: null, b: null).getOverlappingRange(),

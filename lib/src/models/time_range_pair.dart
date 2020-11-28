@@ -12,7 +12,7 @@ abstract class TimeRangePair {
   final dynamic rangeA;
   final dynamic rangeB;
 
-  dynamic getOverlappingRange();
+  dynamic getOverlappingRange({bool allowTouchingRanges = false});
 
   @override
   bool operator ==(Object other) {

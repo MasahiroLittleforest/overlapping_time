@@ -10,6 +10,9 @@ import './extensions/list_extension.dart';
 ///   - must consist of unique elements.
 ///   - must be list of elements with type [TimeOfDayRange] or [DateTimeRange].
 ///
+/// - [allowTouchingRanges]
+///   - whether you want to consider touching (not really overlapping) ranges to have overlap with zero time or not.
+///
 /// - [maxOverlappingItemsNum]
 ///   - is maximum number of ranges overlapping each other that you want to find.
 ///   - must be length of [ranges] with no duplication or lower.
@@ -21,6 +24,7 @@ import './extensions/list_extension.dart';
 /// The results of comparing in each subset with overlap will be returned as [ComparingResult].
 Map<int, List<ComparingResult>> findOverlap({
   @required List<dynamic> ranges,
+  bool allowTouchingRanges = false,
   int maxOverlappingItemsNum,
   int minOverlappingItemsNum = 2,
 }) {
@@ -102,12 +106,12 @@ Map<int, List<ComparingResult>> findOverlap({
           overlappingRange = TimeOfDayRangePair(
             a: sub.first as TimeOfDayRange,
             b: sub.last as TimeOfDayRange,
-          ).getOverlappingRange();
+          ).getOverlappingRange(allowTouchingRanges: allowTouchingRanges);
         } else if (elementsType == DateTimeRange) {
           overlappingRange = DateTimeRangePair(
             a: sub.first as DateTimeRange,
             b: sub.last as DateTimeRange,
-          ).getOverlappingRange();
+          ).getOverlappingRange(allowTouchingRanges: allowTouchingRanges);
         }
 
         if (overlappingRange == null) {
@@ -140,12 +144,12 @@ Map<int, List<ComparingResult>> findOverlap({
           overlappingRange = TimeOfDayRangePair(
             a: sub.first as TimeOfDayRange,
             b: sub.last as TimeOfDayRange,
-          ).getOverlappingRange();
+          ).getOverlappingRange(allowTouchingRanges: allowTouchingRanges);
         } else if (elementsType == DateTimeRange) {
           overlappingRange = DateTimeRangePair(
             a: sub.first as DateTimeRange,
             b: sub.last as DateTimeRange,
-          ).getOverlappingRange();
+          ).getOverlappingRange(allowTouchingRanges: allowTouchingRanges);
         }
 
         if (overlappingRange == null) {
