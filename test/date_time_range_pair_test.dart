@@ -66,7 +66,10 @@ void main() {
             end: DateTime(2020, 1, 1, 2, 0),
           ),
         ).getOverlappingRange(),
-        null,
+        DateTimeRange(
+          start: DateTime(2020, 1, 1, 1, 0),
+          end: DateTime(2020, 1, 1, 2, 0),
+        ),
       );
     });
 
