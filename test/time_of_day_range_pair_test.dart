@@ -71,7 +71,10 @@ void main() {
             end: TimeOfDay(hour: 2, minute: 0),
           ),
         ).getOverlappingRange(),
-        null,
+        const TimeOfDayRange(
+          start: TimeOfDay(hour: 1, minute: 0),
+          end: TimeOfDay(hour: 2, minute: 0),
+        ),
       );
     });
 
