@@ -16,7 +16,7 @@ class DateTimeRangePair extends TimeRangePair {
 
   /// Finds overlapping range between two [DateTimeRange]s.
   @override
-  DateTimeRange getOverlappingRange() {
+  DateTimeRange getOverlappingRange({bool allowTouchingRanges = false}) {
     // CASE 1: A == B
     //
     // A: |---------|
@@ -49,17 +49,23 @@ class DateTimeRangePair extends TimeRangePair {
     // A:           |---------|
     // B: |---------|
     if (a.end <= b.start || b.end <= a.start) {
-      return null;
+      if (allowTouchingRanges) {
+        if (a.end == b.start) {
+          return DateTimeRange(start: a.end, end: b.start);
+        } else if (b.end == a.start) {
+          return DateTimeRange(start: b.end, end: a.start);
+        }
+      } else {
+        return null;
+      }
     }
-
-    DateTimeRange overlappingDateTimeRange;
 
     // CASE 3: ABAB
     //
     // A: |---------------|
     // B:         |---------------|
     if ((a.start < b.start) && (b.start < a.end) && (a.end < b.end)) {
-      overlappingDateTimeRange = DateTimeRange(start: b.start, end: a.end);
+      return DateTimeRange(start: b.start, end: a.end);
     }
 
     // CASE 4: ABBA
@@ -77,7 +83,7 @@ class DateTimeRangePair extends TimeRangePair {
     // A: |---------------|
     // B: |------|
     else if ((a.start <= b.start) && (b.start < b.end) && (b.end <= a.end)) {
-      overlappingDateTimeRange = DateTimeRange(start: b.start, end: b.end);
+      return DateTimeRange(start: b.start, end: b.end);
     }
 
     // CASE 5: BABA
@@ -85,7 +91,7 @@ class DateTimeRangePair extends TimeRangePair {
     // A:         |---------------|
     // B: |---------------|
     else if ((b.start < a.start) && (a.start < b.end) && (b.end < a.end)) {
-      overlappingDateTimeRange = DateTimeRange(start: a.start, end: b.end);
+      return DateTimeRange(start: a.start, end: b.end);
     }
 
     // CASE 6: BAAB
@@ -103,9 +109,9 @@ class DateTimeRangePair extends TimeRangePair {
     // A: |------|
     // B: |---------------|
     else if ((b.start <= a.start) && (a.start < a.end) && (a.end <= b.end)) {
-      overlappingDateTimeRange = DateTimeRange(start: a.start, end: a.end);
+      return DateTimeRange(start: a.start, end: a.end);
     }
 
-    return overlappingDateTimeRange;
+    return null;
   }
 }

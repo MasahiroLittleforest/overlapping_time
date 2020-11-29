@@ -17,7 +17,7 @@ class TimeOfDayRangePair extends TimeRangePair {
 
   /// Finds overlapping range between two [TimeOfDayRange]s.
   @override
-  TimeOfDayRange getOverlappingRange() {
+  TimeOfDayRange getOverlappingRange({bool allowTouchingRanges = false}) {
     // CASE 1: A == B
     //
     // A: |---------|
@@ -64,17 +64,23 @@ class TimeOfDayRangePair extends TimeRangePair {
     // A:           |---------|
     // B: |---------|
     if (aEnd <= bStart || bEnd <= aStart) {
-      return null;
+      if (allowTouchingRanges) {
+        if (aEnd == bStart) {
+          return TimeOfDayRange(start: a.end, end: b.start);
+        } else if (bEnd == aStart) {
+          return TimeOfDayRange(start: b.end, end: a.start);
+        }
+      } else {
+        return null;
+      }
     }
-
-    TimeOfDayRange overlappingTimeOfDayRange;
 
     /// CASE 3: ABAB
     //
     // A: |---------------|
     // B:         |---------------|
     if ((aStart < bStart) && (bStart < aEnd) && (aEnd < bEnd)) {
-      overlappingTimeOfDayRange = TimeOfDayRange(start: b.start, end: a.end);
+      return TimeOfDayRange(start: b.start, end: a.end);
     }
 
     // CASE 4: ABBA
@@ -92,7 +98,7 @@ class TimeOfDayRangePair extends TimeRangePair {
     // A: |---------------|
     // B: |------|
     else if ((aStart <= bStart) && (bStart < bEnd) && (bEnd <= aEnd)) {
-      overlappingTimeOfDayRange = TimeOfDayRange(start: b.start, end: b.end);
+      return TimeOfDayRange(start: b.start, end: b.end);
     }
 
     // CASE 5: BABA
@@ -100,7 +106,7 @@ class TimeOfDayRangePair extends TimeRangePair {
     // A:         |---------------|
     // B: |---------------|
     else if ((bStart < aStart) && (aStart < bEnd) && (bEnd < aEnd)) {
-      overlappingTimeOfDayRange = TimeOfDayRange(start: a.start, end: b.end);
+      return TimeOfDayRange(start: a.start, end: b.end);
     }
 
     // CASE 6: BAAB
@@ -118,9 +124,9 @@ class TimeOfDayRangePair extends TimeRangePair {
     // A: |------|
     // B: |---------------|
     else if ((bStart <= aStart) && (aStart < aEnd) && (aEnd <= bEnd)) {
-      overlappingTimeOfDayRange = TimeOfDayRange(start: a.start, end: a.end);
+      return TimeOfDayRange(start: a.start, end: a.end);
     }
 
-    return overlappingTimeOfDayRange;
+    return null;
   }
 }

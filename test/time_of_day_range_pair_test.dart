@@ -71,12 +71,10 @@ void main() {
             end: TimeOfDay(hour: 2, minute: 0),
           ),
         ).getOverlappingRange(),
-        const TimeOfDayRange(
-          start: TimeOfDay(hour: 1, minute: 0),
-          end: TimeOfDay(hour: 2, minute: 0),
-        ),
+        null,
       );
     });
+
     test('ABAB', () {
       expect(
         const TimeOfDayRangePair(
@@ -94,7 +92,25 @@ void main() {
           end: TimeOfDay(hour: 5, minute: 0),
         ),
       );
+
+      expect(
+        const TimeOfDayRangePair(
+          a: TimeOfDayRange(
+            start: TimeOfDay(hour: 1, minute: 0),
+            end: TimeOfDay(hour: 5, minute: 0),
+          ),
+          b: TimeOfDayRange(
+            start: TimeOfDay(hour: 3, minute: 0),
+            end: TimeOfDay(hour: 7, minute: 0),
+          ),
+        ).getOverlappingRange(),
+        const TimeOfDayRange(
+          start: TimeOfDay(hour: 3, minute: 0),
+          end: TimeOfDay(hour: 5, minute: 0),
+        ),
+      );
     });
+
     test('BABA', () {
       expect(
         const TimeOfDayRangePair(
@@ -113,6 +129,7 @@ void main() {
         ),
       );
     });
+
     test('ABBA', () {
       expect(
         const TimeOfDayRangePair(
@@ -131,6 +148,7 @@ void main() {
         ),
       );
     });
+
     test('BAAB', () {
       expect(
         const TimeOfDayRangePair(
@@ -149,7 +167,9 @@ void main() {
         ),
       );
     });
+
     test('AABB', () {
+      // A.end < B.start
       expect(
         const TimeOfDayRangePair(
           a: TimeOfDayRange(
@@ -163,6 +183,7 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
+
       // A.end == B.start
       expect(
         const TimeOfDayRangePair(
@@ -177,8 +198,27 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
+
+      expect(
+        const TimeOfDayRangePair(
+          a: TimeOfDayRange(
+            start: TimeOfDay(hour: 1, minute: 0),
+            end: TimeOfDay(hour: 2, minute: 0),
+          ),
+          b: TimeOfDayRange(
+            start: TimeOfDay(hour: 2, minute: 0),
+            end: TimeOfDay(hour: 3, minute: 0),
+          ),
+        ).getOverlappingRange(allowTouchingRanges: true),
+        const TimeOfDayRange(
+          start: TimeOfDay(hour: 2, minute: 0),
+          end: TimeOfDay(hour: 2, minute: 0),
+        ),
+      );
     });
+
     test('BBAA', () {
+      // B.end < A.start
       expect(
         const TimeOfDayRangePair(
           a: TimeOfDayRange(
@@ -192,6 +232,7 @@ void main() {
         ).getOverlappingRange(),
         null,
       );
+
       // B.end == A.start
       expect(
         const TimeOfDayRangePair(
@@ -205,6 +246,23 @@ void main() {
           ),
         ).getOverlappingRange(),
         null,
+      );
+
+      expect(
+        const TimeOfDayRangePair(
+          a: TimeOfDayRange(
+            start: TimeOfDay(hour: 2, minute: 0),
+            end: TimeOfDay(hour: 3, minute: 0),
+          ),
+          b: TimeOfDayRange(
+            start: TimeOfDay(hour: 1, minute: 0),
+            end: TimeOfDay(hour: 2, minute: 0),
+          ),
+        ).getOverlappingRange(allowTouchingRanges: true),
+        const TimeOfDayRange(
+          start: TimeOfDay(hour: 2, minute: 0),
+          end: TimeOfDay(hour: 2, minute: 0),
+        ),
       );
     });
 
@@ -226,6 +284,7 @@ void main() {
           end: TimeOfDay(hour: 3, minute: 0),
         ),
       );
+
       // BABA && overnight
       expect(
         const TimeOfDayRangePair(
@@ -243,6 +302,7 @@ void main() {
           end: TimeOfDay(hour: 3, minute: 0),
         ),
       );
+
       // ABBA && over night
       expect(
         const TimeOfDayRangePair(
@@ -260,6 +320,7 @@ void main() {
           end: TimeOfDay(hour: 1, minute: 0),
         ),
       );
+
       // BAAB && over night
       expect(
         const TimeOfDayRangePair(

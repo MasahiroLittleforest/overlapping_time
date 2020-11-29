@@ -140,25 +140,6 @@ void main() {
       );
     });
 
-    test('comparedRanges: List<TimeOfDayRange>, overlappingRange: null', () {
-      expect(
-        () => ComparingResult(
-          comparedRanges: const [
-            TimeOfDayRange(
-              start: TimeOfDay(hour: 1, minute: 0),
-              end: TimeOfDay(hour: 3, minute: 0),
-            ),
-            TimeOfDayRange(
-              start: TimeOfDay(hour: 2, minute: 0),
-              end: TimeOfDay(hour: 4, minute: 0),
-            ),
-          ],
-          overlappingRange: null,
-        ),
-        throwsAssertionError,
-      );
-    });
-
     test('comparedRanges: null, overlappingRange: TimeOfDayRange', () {
       expect(
         () => ComparingResult(
@@ -168,22 +149,6 @@ void main() {
             end: TimeOfDay(hour: 3, minute: 0),
           ),
         ),
-        throwsAssertionError,
-      );
-    });
-
-    test('comparedRanges: List<DateTimeRange>, overlappingRange: null', () {
-      expect(
-        () => ComparingResult(comparedRanges: [
-          DateTimeRange(
-            start: DateTime(2020, 1, 1, 1, 0),
-            end: DateTime(2020, 1, 1, 3, 0),
-          ),
-          DateTimeRange(
-            start: DateTime(2020, 1, 1, 2, 0),
-            end: DateTime(2020, 1, 1, 4, 0),
-          ),
-        ], overlappingRange: null),
         throwsAssertionError,
       );
     });
