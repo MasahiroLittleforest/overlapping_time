@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 jobs:
-  publish-dry-run:
+  publish:
     runs-on: ubuntu-latest
     
     steps:
@@ -30,17 +30,20 @@ jobs:
         
       - name: Run tests
         run: flutter test
+
+      - name: Check if package has warnings
+        run: flutter pub publish --dry-run
       
       - name: Set up credentials
         run: | 
           mkdir -p ~/.pub-cache 
           cat <<EOF > ~/.pub-cache/credentials.json
           {
-          "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
-          "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
-          "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
-          "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
-          "expiration": 1570721159347
+            "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
+            "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
+            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 1570721159347
           }
           EOF
       
