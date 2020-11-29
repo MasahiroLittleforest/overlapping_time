@@ -22,7 +22,7 @@ class DateTimeRangePair extends TimeRangePair {
     // A: |---------|
     // B: |---------|
     if (a == b) {
-      return null;
+      return a;
     }
 
     // CASE 2: AABB || BBAA

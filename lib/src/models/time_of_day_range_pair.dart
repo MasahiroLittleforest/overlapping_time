@@ -23,7 +23,7 @@ class TimeOfDayRangePair extends TimeRangePair {
     // A: |---------|
     // B: |---------|
     if (a == b) {
-      return null;
+      return a;
     }
 
     final int aStart = a.start.inMinutes();
