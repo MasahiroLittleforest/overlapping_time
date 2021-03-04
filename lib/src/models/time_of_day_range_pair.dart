@@ -1,23 +1,20 @@
 import 'package:overlapping_time/overlapping_time.dart';
-import 'package:flutter/material.dart';
 
 import '../extensions/time_of_day_extension.dart';
 
 /// A pair of [TimeOfDayRange].
 class TimeOfDayRangePair extends TimeRangePair {
   const TimeOfDayRangePair({
-    @required this.a,
-    @required this.b,
-  })  : assert(a != null),
-        assert(b != null),
-        super(rangeA: a, rangeB: b);
+    required this.a,
+    required this.b,
+  }) : super(rangeA: a, rangeB: b);
 
   final TimeOfDayRange a;
   final TimeOfDayRange b;
 
   /// Finds overlapping range between two [TimeOfDayRange]s.
   @override
-  TimeOfDayRange getOverlappingRange({bool allowTouchingRanges = false}) {
+  TimeOfDayRange? getOverlappingRange({bool allowTouchingRanges = false}) {
     // CASE 1: A == B
     //
     // A: |---------|

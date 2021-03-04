@@ -248,10 +248,10 @@ void main() {
     });
   });
 
-  test('ranges are null', () {
-    expect(
-      () => DateTimeRangePair(a: null, b: null).getOverlappingRange(),
-      throwsAssertionError,
-    );
-  });
+  // test('ranges are null', () {
+  //   expect(
+  //     () => DateTimeRangePair(a: null, b: null).getOverlappingRange(),
+  //     throwsAssertionError,
+  //   );
+  // });
 }

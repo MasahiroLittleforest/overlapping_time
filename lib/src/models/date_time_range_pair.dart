@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:overlapping_time/overlapping_time.dart';
-import 'package:basics/date_time_basics.dart';
+
+import '../extensions/date_time_extension.dart';
 
 /// A pair of [DateTimeRange].
 class DateTimeRangePair extends TimeRangePair {
   const DateTimeRangePair({
-    @required this.a,
-    @required this.b,
-  })  : assert(a != null),
-        assert(b != null),
-        super(rangeA: a, rangeB: b);
+    required this.a,
+    required this.b,
+  }) : super(rangeA: a, rangeB: b);
 
   final DateTimeRange a;
   final DateTimeRange b;
 
   /// Finds overlapping range between two [DateTimeRange]s.
   @override
-  DateTimeRange getOverlappingRange({bool allowTouchingRanges = false}) {
+  DateTimeRange? getOverlappingRange({bool allowTouchingRanges = false}) {
     // CASE 1: A == B
     //
     // A: |---------|

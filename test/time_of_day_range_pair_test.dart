@@ -360,10 +360,10 @@ void main() {
     });
   });
 
-  test('ranges are null', () {
-    expect(
-      () => TimeOfDayRangePair(a: null, b: null).getOverlappingRange(),
-      throwsAssertionError,
-    );
-  });
+  // test('ranges are null', () {
+  //   expect(
+  //     () => TimeOfDayRangePair(a: null, b: null).getOverlappingRange(),
+  //     throwsAssertionError,
+  //   );
+  // });
 }

@@ -9,10 +9,9 @@ class TimeOfDayRange {
   ///
   /// [start] and [end] must be non-null.
   const TimeOfDayRange({
-    @required this.start,
-    @required this.end,
-  })  : assert(start != null),
-        assert(end != null);
+    required this.start,
+    required this.end,
+  });
 
   /// The **start** point of the range.
   final TimeOfDay start;

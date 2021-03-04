@@ -132,40 +132,40 @@ void main() {
     });
   });
 
-  group('null', () {
-    test('comparedRanges: null, overlappingRange: null', () {
-      expect(
-        () => ComparingResult(comparedRanges: null, overlappingRange: null),
-        throwsAssertionError,
-      );
-    });
+  // group('null', () {
+  //   test('comparedRanges: null, overlappingRange: null', () {
+  //     expect(
+  //       () => ComparingResult(comparedRanges: null, overlappingRange: null),
+  //       throwsAssertionError,
+  //     );
+  //   });
 
-    test('comparedRanges: null, overlappingRange: TimeOfDayRange', () {
-      expect(
-        () => ComparingResult(
-          comparedRanges: null,
-          overlappingRange: const TimeOfDayRange(
-            start: TimeOfDay(hour: 2, minute: 0),
-            end: TimeOfDay(hour: 3, minute: 0),
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
+  //   test('comparedRanges: null, overlappingRange: TimeOfDayRange', () {
+  //     expect(
+  //       () => ComparingResult(
+  //         comparedRanges: null,
+  //         overlappingRange: const TimeOfDayRange(
+  //           start: TimeOfDay(hour: 2, minute: 0),
+  //           end: TimeOfDay(hour: 3, minute: 0),
+  //         ),
+  //       ),
+  //       throwsAssertionError,
+  //     );
+  //   });
 
-    test('comparedRanges: null, overlappingRange: DateTimeRange', () {
-      expect(
-        () => ComparingResult(
-          comparedRanges: null,
-          overlappingRange: DateTimeRange(
-            start: DateTime(2020, 1, 1, 2, 0),
-            end: DateTime(2020, 1, 1, 3, 0),
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-  });
+  //   test('comparedRanges: null, overlappingRange: DateTimeRange', () {
+  //     expect(
+  //       () => ComparingResult(
+  //         comparedRanges: null,
+  //         overlappingRange: DateTimeRange(
+  //           start: DateTime(2020, 1, 1, 2, 0),
+  //           end: DateTime(2020, 1, 1, 3, 0),
+  //         ),
+  //       ),
+  //       throwsAssertionError,
+  //     );
+  //   });
+  // });
   group('empty list', () {
     test('comparedRanges: [], overlappingRange: TimeOfDayRange', () {
       expect(

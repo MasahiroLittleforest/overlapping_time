@@ -6,10 +6,9 @@ import 'package:overlapping_time/overlapping_time.dart';
 @immutable
 class ComparingResult {
   ComparingResult({
-    @required this.comparedRanges,
-    @required this.overlappingRange,
-  })  : assert(comparedRanges != null),
-        assert(
+    required this.comparedRanges,
+    required this.overlappingRange,
+  })   : assert(
           comparedRanges.isNotEmpty,
           '"comparedRanges" shoudn\'t be empty.',
         ),

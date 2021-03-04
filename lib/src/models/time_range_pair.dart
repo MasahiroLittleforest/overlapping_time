@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 @immutable
 abstract class TimeRangePair {
   const TimeRangePair({
-    @required this.rangeA,
-    @required this.rangeB,
-  })  : assert(rangeA != null),
+    required this.rangeA,
+    required this.rangeB,
+  })   : assert(rangeA != null),
         assert(rangeB != null);
 
   final dynamic rangeA;

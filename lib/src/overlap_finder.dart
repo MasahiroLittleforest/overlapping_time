@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:overlapping_time/overlapping_time.dart';
@@ -23,15 +24,11 @@ import './extensions/list_extension.dart';
 ///
 /// The results of comparing in each subset with overlap will be returned as [ComparingResult].
 Map<int, List<ComparingResult>> findOverlap({
-  @required List<dynamic> ranges,
+  required List<dynamic> ranges,
   bool allowTouchingRanges = false,
-  int maxOverlappingItemsNum,
+  int? maxOverlappingItemsNum,
   int minOverlappingItemsNum = 2,
 }) {
-  if (ranges == null) {
-    throw ArgumentError.notNull('ranges');
-  }
-
   if (ranges.isEmpty) {
     return {};
   }
@@ -67,14 +64,12 @@ Map<int, List<ComparingResult>> findOverlap({
     }
   }
 
-  if (minOverlappingItemsNum != null) {
-    if (minOverlappingItemsNum < 2) {
-      throw ArgumentError.value(
-        minOverlappingItemsNum,
-        'minOverlappingItemsNum',
-        'must be 2 or higher.',
-      );
-    }
+  if (minOverlappingItemsNum < 2) {
+    throw ArgumentError.value(
+      minOverlappingItemsNum,
+      'minOverlappingItemsNum',
+      'must be 2 or higher.',
+    );
   }
 
   final List<dynamic> dedupedItems = ranges.dedupe();
@@ -98,7 +93,7 @@ Map<int, List<ComparingResult>> findOverlap({
         subsets.where((subset) => subset.length == i).toList();
 
     for (final List<dynamic> sub in subs) {
-      List<dynamic> comparedRanges;
+      List<dynamic> comparedRanges = [];
       dynamic overlappingRange;
 
       if (i == 2) {
@@ -129,10 +124,9 @@ Map<int, List<ComparingResult>> findOverlap({
         final dynamic b = sub.last;
 
         // If same ranges as "a" has been done, use result of it
-        final ComparingResult alreadyFoundResult =
-            foundOverlapsMap[previousIndex].firstWhere(
+        final ComparingResult? alreadyFoundResult =
+            foundOverlapsMap[previousIndex]?.firstWhereOrNull(
           (ComparingResult r) => listEquals(r.comparedRanges, a),
-          orElse: () => null,
         );
 
         if (alreadyFoundResult == null) {
@@ -165,7 +159,7 @@ Map<int, List<ComparingResult>> findOverlap({
         overlappingRange: overlappingRange,
       );
 
-      foundOverlapsMap[i].add(result);
+      foundOverlapsMap[i]!.add(result);
     }
   }
 
