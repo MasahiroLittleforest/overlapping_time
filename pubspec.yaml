@@ -1,6 +1,6 @@
 name: overlapping_time
 description: A package for finding overlappings between given time ranges.
-version: 0.0.2
+version: 0.1.0
 repository: https://github.com/MasahiroLittleforest/overlapping_time
 
 environment:
