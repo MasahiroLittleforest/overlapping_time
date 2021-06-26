@@ -8,7 +8,7 @@ class ComparingResult {
   ComparingResult({
     required this.comparedRanges,
     required this.overlappingRange,
-  })   : assert(
+  })  : assert(
           comparedRanges.isNotEmpty,
           '"comparedRanges" shoudn\'t be empty.',
         ),

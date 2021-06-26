@@ -6,7 +6,7 @@ abstract class TimeRangePair {
   const TimeRangePair({
     required this.rangeA,
     required this.rangeB,
-  })   : assert(rangeA != null),
+  })  : assert(rangeA != null),
         assert(rangeB != null);
 
   final dynamic rangeA;
@@ -25,5 +25,6 @@ abstract class TimeRangePair {
   }
 
   @override
+  // ignore: unnecessary_overrides
   int get hashCode => super.hashCode;
 }

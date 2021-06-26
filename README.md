@@ -28,7 +28,7 @@ The type of time ranges to compare must be either `TimeOfDayRange`, which is cre
 
     final List ranges = [rangeA, rangeB, rangeC];
 
-    final Map<int, List<Result>> searchResults = findOverlap(ranges: ranges);
+    final Map<int, List<ComparingResult>> searchResults = findOverlap(ranges: ranges);
 
     // Extract range that all 3 ranges overlap with each other
     final TimeOfDayRange overlappingRange = searchResults[3].first.overlappingRange;
@@ -64,7 +64,7 @@ The type of time ranges to compare must be either `TimeOfDayRange`, which is cre
 
     final List ranges = [rangeA, rangeB, rangeC];
 
-    final Map<int, List<Result>> searchResults = findOverlap(items: ranges);
+    final Map<int, List<ComparingResult>> searchResults = findOverlap(items: ranges);
 
     // Extract range that all 3 ranges overlap with each other
     final DateTimeRange overlappingRange = searchResults[3].first.overlappingRange;
