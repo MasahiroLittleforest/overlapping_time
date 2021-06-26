@@ -25,5 +25,6 @@ abstract class TimeRangePair {
   }
 
   @override
+  // ignore: unnecessary_overrides
   int get hashCode => super.hashCode;
 }
