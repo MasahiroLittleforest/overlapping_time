@@ -6,7 +6,7 @@ abstract class TimeRangePair {
   const TimeRangePair({
     required this.rangeA,
     required this.rangeB,
-  })   : assert(rangeA != null),
+  })  : assert(rangeA != null),
         assert(rangeB != null);
 
   final dynamic rangeA;
